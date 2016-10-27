@@ -5,11 +5,13 @@ This script is based on the official instruction on how to install setlX, which 
 [SetlX Official Website](randoom.org/Software/SetlX)
 
 Since the script is still under development, there are not many features.
-Also, it has only be tested on Linux Machines! Feel free to test it on macOS.
+It is currently only working for Linux. It will work on macOS soon.
 
 ### Installing setlX ###
 
 You need to be root to execute the script, since you are copying files to <code>/usr/local/</code> and changing the access permissions in order to make it executable. You also need to restart your computer to be able to use the <code>setlX</code> command.
+
+Packages required: wget or curl, java
 
 #### Changing version and paths ####
 
@@ -18,7 +20,8 @@ By default, the values are:
 <pre><code>setlx_version=2-5-1
 TmpDir="$HOME/tmp/setlX"
 JarDir="/usr/local/setlX/"
-LibDir="$HOME/setlXlibrary"</code></pre>
+LibDir="$HOME/setlXlibrary"
+BinDir="/usr/local/bin"</code></pre>
 
 The <code>TmpDir</code> variable is used to check for a temporary folder.
 The setlX-binary will be downloaded and unzipped to <code>$HOME/tmp/setlX</code> by default.

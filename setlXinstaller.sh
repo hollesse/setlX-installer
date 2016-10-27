@@ -59,7 +59,7 @@ fi
 
 # find all files that match 'setlX*.jar' and copy them to ${JarDir} (default: /usr/local/setlX/)
 echo "Copying setlX*.jar files\n\n"
-sudo find ${TmpDir}/ -type f -name 'setlX*.jar' -exec cp '{}' ${JarDir} ';'
+sudo find ${TmpDir}/ -type f -name 'setlX*.jar' -exec cp '{}' ${JarDir}/ ';'
 
 #CHECK for a setlXlibrary folder
 if ! ( [ -d ${LibDir}/ ] ) ; then
@@ -68,11 +68,17 @@ if ! ( [ -d ${LibDir}/ ] ) ; then
 fi
 
 #Copy all files from ./setlXlibrary to LibDir
-find ${TmpDir}/setlXlibrary -type f -name '*.*' -exec cp '{}' ${LibDir} ';'
+find ${TmpDir}/setlXlibrary -type f -name '*.*' -exec cp '{}' ${LibDir}/ ';'
 
 #Entering the path of the jar- and library-files
-sed -i 's/setlXJarDirectory\=\"\.\"/setlXJarDirectory\=\"\/usr\/local\/setlX\/\"/' ${TmpDir}/setlX
-sed -i 's/setlXlibraryPath\=\"\$HOME\/setlXlibrary\/\"/setlXlibraryPath\=\"\$HOME\/setlXlibrary\/\"/' ${TmpDir}/setlX
+
+if [ "$(uname)" == "Darwin" ]; then
+  sed -i "" 's/setlXJarDirectory\=\"\.\"/setlXJarDirectory\=\"\/usr\/local\/setlX\/\"/' ${TmpDir}/setlX
+  sed -i "" 's/setlXlibraryPath\=\"\$HOME\/setlXlibrary\/\"/setlXlibraryPath\=\"\$HOME\/setlXlibrary\/\"/' ${TmpDir}/setlX
+elif [ "$(uname)" == "Linux" ]; then
+  sed -i 's/setlXJarDirectory\=\"\.\"/setlXJarDirectory\=\"\/usr\/local\/setlX\/\"/' ${TmpDir}/setlX
+  sed -i 's/setlXlibraryPath\=\"\$HOME\/setlXlibrary\/\"/setlXlibraryPath\=\"\$HOME\/setlXlibrary\/\"/' ${TmpDir}/setlX
+fi
 
 sudo cp ${TmpDir}/setlX ${BinDir}/
 
